@@ -2,13 +2,14 @@
 'use strict';
 const fs = require("fs");
 const path = require("path");
+require('dotenv').config()
 const Sequelize = require("sequelize");
 const basename = path.basename(__filename);
 const db = {};
 
 let sequelize;
 
-sequelize = new Sequelize("groupomania", "mounir", "Kakossekos95", {
+sequelize = new Sequelize("groupomania", `${process.env.DB_NAME}`, `${process.env.DB_PASSWORD}`, {
   host: "localhost",
   dialect: "mysql"
 });
