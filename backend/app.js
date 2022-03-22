@@ -25,7 +25,7 @@ app.use(bodyParser.json());
 app.use('/api/auth', userRoutes);
 app.use('/api/publications', publicationRoutes);
 app.use('/api/comments', commentRoutes);
-app.use('/api/admin', adminRoutes)
+app.use('/api/admin', adminRoutes);
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 

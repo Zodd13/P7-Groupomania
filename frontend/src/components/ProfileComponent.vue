@@ -1,21 +1,32 @@
 <script>
 import { mapState } from "vuex";
+import ModaleDeleteUser from "./ModaleDeleteUser.vue";
+
 export default {
+    data() {
+        return {
+            revele: false
+        };
+    },
     mounted() {
-        if(this.$store.state.user.userId == -1){
-            this.$router.push('/register')
+        if (this.$store.state.user.userId == -1) {
+            this.$router.push("/register");
             return;
         }
-        this.$store.dispatch('userProfile')
+        this.$store.dispatch("userProfile");
     },
-    computed:{
-        ...mapState({user:'profileUser'})
+    computed: {
+        ...mapState({ user: "profileUser" })
     },
-    methods:{
-        goToUpdateProfile(){
-            this.$router.push('/updateprofile')
+    methods: {
+        goToUpdateProfile() {
+            this.$router.push("/updateprofile");
+        },
+        toggleModale(){
+            this.revele = !this.revele
         }
-    }
+    },
+    components: { ModaleDeleteUser }
 }
 </script>
 
@@ -32,6 +43,10 @@ export default {
             <div class="d-flex flex-column text-right mr-2"> <span>{{user.bio}}</span> </div>
         </div>
         <button @click="goToUpdateProfile()" type="button" class="btn btn-success btn-sm mt-2">Mettre à jour</button>
+        <ModaleDeleteUser v-bind:revele="revele" v-bind:toggleModale="toggleModale" v-bind:deleteProfile="deleteProfile"></ModaleDeleteUser>
+                <div class="btn btn-danger mt-2" @click="toggleModale">
+                    Supprimer votre compte
+                 </div>
     </div>
 </div>
 </template>

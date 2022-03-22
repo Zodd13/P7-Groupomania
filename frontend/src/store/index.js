@@ -276,7 +276,7 @@ export default createStore({
         console.log(error);
       })
     },
-    ///////////////////// ACTION LIES A L'ADMINISTRATEUR /////////////////////
+    ///////////////////// ACTION LIES AUX ADMINISTRATEURS /////////////////////
     allPublicationsAdmin: ({commit}) => {
       instance.get('/admin')
       .then(function(response){
@@ -297,6 +297,19 @@ export default createStore({
         .catch(function(error){
           console.log(error)
         })
+    },
+    allUsersAdmin:({commit}) => {
+      instance.get('/admin/users')
+        .then(function(response){
+          console.log(response.data.users)
+          commit('profileUser', response.data.users)
+        })
+    },
+    userById: ({commit}, user) => {
+      instance.get('/admin/users/' + user.id)
+      .then(function(response){
+        commit('profileUser', response.data)
+      })
     },
     updateStatus({commit}, message) {
       instance.put('/admin/updatestatus/' + message.id, {
@@ -320,6 +333,24 @@ export default createStore({
         console.log(error);
       })
     },
+    deleteUser({commit}, user){
+      instance.delete('/admin/users/delete/' + user.id)
+        .then(function(reponse){
+          commit('profileUser', reponse.data)
+        })
+    },
+    deleteCommentAdmin({commit}, comment){
+      instance.delete('/admin/commentaire/delete/' + comment.id)
+        .then(function(reponse){
+          commit('commentInfos', reponse.data)
+        })
+    },
+    deletePublicationAdmin({commit}, publication){
+      instance.delete('/admin/publication/delete/' + publication.id)
+        .then(function(reponse){
+          commit('publicationInfos', reponse.data)
+        })
+    },    
   },
   modules: {
   }

@@ -29,7 +29,6 @@ export default {
         publicationId(id){
             this.$router.push('/adminpublications/' + id)
         },
-
     }
 }
 </script>
@@ -42,12 +41,11 @@ export default {
         <p>Vous pouvez si vous jugez que c'est nécessaire, supprimer cette publication.</p>
     </div>
     
-    
-    <router-link to="/admincommentaires/" v-if="this.$store.state.user.isAdmin === true">Valider les commentaires</router-link>
-
-
-    <h4 onload="verificationAdmin()" v-else class="text-danger mt-3">Oups vous n'avez rien à faire ici.</h4>
-
+    <nav>
+    <router-link to="/admincommentaires/">Valider les commentaires</router-link>
+    <router-link to="/adminuser/"> Bannir des utilisateurs</router-link>
+    </nav>
+    <h5>Publications en attente ..</h5>
     <div class="container-sm" v-if="user.isAdmin == true">
         <div
             v-for="message in messages"
@@ -64,12 +62,20 @@ export default {
                 <span class="message__date">{{ message.createdAt.split('T')[0] }}</span>
             </div>
         <img v-if="message.image !== null" class="card-img-top" alt="..." :src="message.image" />
-
         </div>
     </div>
+    <h4 onload="verificationAdmin()" v-else class="text-danger mt-3">Oups vous n'avez rien à faire ici.</h4>
 </template>
 
 <style lang="scss" scoped>
+nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    & > a{
+        text-decoration: none;
+    }
+}
 .container-sm{
     width: 30%;
 }

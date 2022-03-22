@@ -47,14 +47,15 @@ export default {
             this.$router.push('/updatepublication/' + id)
         },
         deletePublication() {
-            this.$store.dispatch('deletePublication', { id: this.id })
-            window.alert('Votre publication a bien été supprimer, vous allez être rediriger.')
-            this.$router.push('/home')
+            this.$store.dispatch('deletePublicationAdmin', { id: this.id })
+            this.$router.push('/admin')
+            window.alert('La publication a bien été supprimer, vous allez être rediriger.')
+            
         },
         switchStatus() {
             this.$store.dispatch('updateStatus', { id: this.id })
-            window.alert('La publication a bien été valider.')
-            this.$router.push('/home')
+            this.$router.push('/admin')
+            window.alert('La publication a bien été valider, vous allez être rediriger.')
         }
     }
 }
@@ -62,20 +63,7 @@ export default {
 <template>
     <div class="container-sm" v-if="componentLoaded === true">
         <div class="card-body">
-            <button @click="switchStatus()" type="button" class="btn btn-success btn-sm d-flex">Valider la publication</button>
             <span class="badge bg-secondary">{{ message.User.username }}</span>
-            <span
-                @click="goToUpdate(id)"
-                class="edit__button"
-                v-if="this.$store.state.user.userId === this.message.UserId"
-            >Modifier</span>
-            <span v-else></span>
-            <span
-                @click.prevent="deletePublication(id)"
-                class="delete__button"
-                v-if="this.$store.state.user.userId === this.message.UserId"
-            >Supprimer</span>
-            <span v-else></span>
             <div class="dropdown-divider"></div>
             <div class="card-text d-flex justify-content-between align-items-md-center">
                 <p class="card-text d-flex flex-start">{{ message.message }}</p>
@@ -83,6 +71,14 @@ export default {
             <span class="message__date">{{ message.createdAt.split('T')[0] }}</span>
         </div>
         <img v-if="message.image !== null" class="card-img-top" alt="..." :src="message.image" />
+        <div class="d-flex">
+                <button
+            @click="switchStatus()"
+            type="button"
+            class="btn btn-success btn-sm m-1"
+        >Valider le commentaire</button>
+        <button @click="deletePublication()" class="btn btn-danger m-1">Supprimer</button>
+    </div>    
     </div>
     <div v-else>
         <h1>test</h1>
@@ -136,5 +132,16 @@ export default {
 }
 p.card-text {
     margin: 0.2rem;
+}
+@media (max-width: 768px) {
+    .btn {
+        width: 40%;
+    }
+    .d-flex{
+        justify-content: space-evenly;
+    }
+    .container-sm{
+        width: 100% !important;
+    }
 }
 </style>

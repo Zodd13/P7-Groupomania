@@ -40,7 +40,7 @@ export default{
         <p>Pour valider un commentaire, cliquez d'abord sur la publication puis ensuite sur le bouton valider.</p>
         <p>Vous pouvez si vous jugez que c'est nécessaire, supprimer le commentaire.</p>
     </div>
-
+        <h5 class="mt-3">Commentaire en attente de validation ..</h5>
     <div class="container-sm" v-if="user.isAdmin == true">
         <div
             v-for="comment in comments"

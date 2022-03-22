@@ -64,7 +64,7 @@ export default {
                 id: this.id,
                 comment: this.comment.comments,
             })
-            window.alert('Votre commentaire a bien été poster !')
+            window.alert('Votre commentaire a bien été poster, un administrateur va le valider.')
             window.location.reload();
         },
         goToComment(id) {

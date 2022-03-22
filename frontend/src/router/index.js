@@ -12,6 +12,8 @@ import AdminPanelView from "../views/AdminPanelView.vue";
 import AdminPublicationView from "../views/AdminPublicationView.vue";
 import AdminCommentaireView from "../views/AdminCommentaireView.vue";
 import AdminCommentaireIdView from "../views/AdminCommentaireIdView.vue";
+import AdminUserView from "../views/AdminUserView.vue";
+import AdminUserIdView from "../views/AdminUserIdView.vue";
 
 const routes = [
   {
@@ -59,9 +61,18 @@ const routes = [
     component: AdminCommentaireIdView
   },
   {
+    path: '/adminuser/',
+    component: AdminUserView
+  },
+  {
+    path: '/adminuser/:id',
+    component: AdminUserIdView
+  },
+  {
     path: '/home',
     component: HomeView,
   },
+
 ]
 
 const router = createRouter({
