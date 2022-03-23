@@ -1,42 +1,45 @@
-Cloner  le dépôt  sur votre ordinateur.
+Avant de lancer le projet, quelques étapes sont nécéssaires.
 
-Lancer le dossier Groupomania sur  votre éditeur de texte.
+##
 
-Via le terminal rendez vous sur le dossier backend : CD backend.
+- Cloner  le dépôt  sur votre ordinateur.
 
-Lancez npm install
+- Ouvrez le projet avec votre éditeur de code.
 
-Renvez vous ensuite  sur le dossier Frontend : cd .. et CD frontend.
+- Via le terminal naviguez vers le dossier backend et lancer la commande ```npm install```
 
-Installer les dépendences nécéssaires au projet avec : 
+- Naviguez vers le dossier frontend et lancer la commande ```npm install```
 
-npm install
+- Vous pouvez lancer le projet via la commande ```npm run serve```
 
-puis 
+##
 
-yarn install
+Une fois le projet installé, il va falloir configurer le fichier ```.env```
 
-Lancez ensuite le projet avec Yarn run serve
+Rendez vous donc dans le dossier backend et créer un fichier à la racine de ce dernier appeler  ```.env```
 
-////
+Dans ce fichier créer une variable appelée  ```SECRET_KEY="Mettez un mot de passe ici"```
 
-Une fois la projet installé, il va falloir configurer le fichier .env,
-rendez vous donc dans le dossier backend et créer un fichier à la racine de ce dernier appeler .env.
-Dans ce fichier créer une variable appeler SECRET_KEY="Mettez un mot de passe ici"
+Faites de même avec vos identifiants de connexion à votre base de données : 
 
-////
+```DB_NAME="Le nom de votre base de donnée mysql"```
 
-Dans le dossier config du backend remplacer les données du fichiers config.json par les données de votre base de données.
+```DB_PASSWORD="Le mot de passe de votre base de données"```
 
-Connectez vous à votre base de données.
+##
 
-Créer une base de données appelé Groupomania : CREATE DATABASE groupomania;
+Un dump de la base de données est présent à la racine du projet.
 
-Via l'invite de commande rendez vous dans le dossiers \P7-Groupomania où se situe le DUMP de la base de données.
+##
 
-Via le terminal lancez : mysql -u root -p groupomania < dump.sql
+Créer une base de données appelé Groupomania : ```CREATE DATABASE groupomania;```
+
+Via l'invite de commande rendez vous dans le dossier du projet où se situe le DUMP de la base de données.
+
+Via le terminal lancez : ```mysql -u root -p groupomania < dump.sql```
 
 Une fois ceci fait vous aurez accès au projet. Un compte administrateur est déjà créer :
 
-EMAIL = Admin@admin.com
-MOT DE PASSE = Admin1
+```EMAIL = Admin@admin.com```
+
+```MOT DE PASSE = Admin1```
