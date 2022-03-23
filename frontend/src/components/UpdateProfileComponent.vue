@@ -60,12 +60,6 @@ export default {
                 this.$router.push("/profile");
             }
         },
-        deleteProfile() {
-            this.$store.dispatch("deleteProfile", {
-                id: this.user.id
-            });
-            this.logout();
-        }
     },
 }
 </script>

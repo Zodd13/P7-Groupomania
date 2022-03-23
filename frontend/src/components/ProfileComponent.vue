@@ -19,11 +19,21 @@ export default {
         ...mapState({ user: "profileUser" })
     },
     methods: {
+        logout: function () {
+            this.$store.commit("logoutUser");
+            this.$router.push("/register");
+        },
         goToUpdateProfile() {
             this.$router.push("/updateprofile");
         },
         toggleModale(){
             this.revele = !this.revele
+        },
+        deleteProfile() {
+            this.$store.dispatch("deleteProfile", {
+                id: this.user.id
+            });
+            this.logout();
         }
     },
     components: { ModaleDeleteUser }
