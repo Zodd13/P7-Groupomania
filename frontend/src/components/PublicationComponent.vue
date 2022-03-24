@@ -54,9 +54,18 @@ export default {
             this.$router.push('/updatepublication/' + id)
         },
         deletePublication() {
-            this.$store.dispatch('deletePublication', { id: this.id })
-            window.alert('Votre publication a bien été supprimer, vous allez être rediriger.')
-            this.$router.push('/home')
+            if (window.confirm("Êtes vous sûr de vouloir supprimer ce poste ?")) {
+                this.$store.dispatch('deletePublication', { id: this.id })
+                window.alert('Votre publication a bien été supprimer, vous allez être rediriger.')
+                this.$router.push('/home')
+            }
+        },
+        deletePublicationAdmin() {
+            if (window.confirm("Êtes vous sûr de vouloir supprimer ce poste ?")) {
+                this.$store.dispatch('deletePublicationAdmin', { id: this.id })
+                this.$router.push('/admin')
+                window.alert('La publication a bien été supprimer, vous allez être rediriger.')
+            }
         },
         createComment() {
             this.$store.commit('commentInfos')
@@ -74,9 +83,30 @@ export default {
 }
 </script>
 <template>
-    <div class="card" v-if="componentLoaded === true">
+<head>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+</head>
+<div class="main--container" v-if="componentLoaded === true">
+    <div class="card">
         <div class="card-body">
-            <span class="badge bg-secondary">{{ message.User.username }}</span>
+            <span class="d-flex align-items-center fw-bold">
+            <img
+                v-if="message.User.avatar !== null"
+                :src="message.User.avatar"
+                class="rounded-circle"
+                alt="Avatar de profile"
+                width="40"
+                height="40"
+            />
+                <img
+                    v-else
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                    class="img-fluid profile-image"
+                    width="70"
+                />
+                {{ message.User.username }}
+                
+                </span>
             <span
                 @click="goToUpdate(id)"
                 class="edit__button"
@@ -88,7 +118,12 @@ export default {
                 class="delete__button"
                 v-if="this.$store.state.user.userId === this.message.UserId"
             >Supprimer</span>
-            <span v-else></span>
+            <span
+                class="delete__button"
+                @click="deletePublicationAdmin(id)"
+                v-if="this.$store.state.user.isAdmin === true"
+            >Supprimer</span>
+            <span class="delete__button"></span>
             <div class="dropdown-divider"></div>
             <div class="card-text d-flex justify-content-between align-items-md-center">
                 <p class="card-text d-flex flex-start">{{ message.message }}</p>
@@ -106,7 +141,7 @@ export default {
                 placeholder="Un commentaire ?"
                 aria-label="Votre message"
             />
-            
+
             <button
                 id="send__button"
                 @click="createComment()"
@@ -121,18 +156,33 @@ export default {
             v-for="(comment) in comments"
             :key="comment.id"
         >
-            <p id="commentary__username" class="badge bg-secondary mr-2">{{ comment.User.username }} :</p>
-            <p class="m-0">{{ comment.comment }}</p>
+            <p
+                id="commentary__username"
+                class="badge bg-secondary mr-2"
+            >{{ comment.User.username }} :</p>
+            <p class="m-0 position-relative">{{ comment.comment }}</p>
+            <span class="material-icons position-absolute">more_horiz</span>
         </div>
     </div>
-    <div v-else>
-        <h1>test</h1>
-    </div>
+</div>
+<div v-else>
+    <h1>Chargement..</h1>
+</div>
 </template>
 <style lang="scss" scoped>
 .comment__title {
     margin-bottom: 0rem;
     margin-top: 0.5rem;
+}
+img{
+    margin-right: 0.5rem;
+}
+.main--container {
+    width: 70%;
+    background: #eae7e152;
+    border: 1px solid #0000003f;
+    margin: auto;
+    height: 100vh;
 }
 .card {
     box-shadow: 10px 5px 5px #c7c7c700;
@@ -158,6 +208,12 @@ export default {
     }
     #commentary__username {
         margin-right: 1rem;
+    }
+}
+.material-icons {
+    right: 9%;
+    &:hover {
+        color: #6e0505;
     }
 }
 .form-control {
@@ -210,5 +266,13 @@ export default {
 }
 p.card-text {
     margin: 0.2rem;
+}
+@media (max-width: 768px) {
+    .btn {
+        width: 40%;
+    }
+    .card {
+        width: auto;
+    }
 }
 </style>

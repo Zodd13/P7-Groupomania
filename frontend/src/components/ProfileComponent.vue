@@ -43,7 +43,9 @@ export default {
 <template>
 <div class="container d-flex justify-content-center mt-5">
     <div class="card">
-        <div class="top-container"> <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" class="img-fluid profile-image" width="70">
+        <div class="top-container"> 
+        <img v-if="user.avatar !== null" :src="user.avatar" class="rounded-circle" width="70" height="70"> 
+        <span v-else>Vous pouvez choisir une photo de profil en mettant à jour vos informations</span>
             <div class="m-2">
                 <h5 class="name">{{ user.username }}</h5>
                 <p class="mail"> {{ user.email }}</p>

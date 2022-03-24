@@ -76,7 +76,7 @@ export default {
             @click="switchStatus()"
             type="button"
             class="btn btn-success btn-sm m-1"
-        >Valider le commentaire</button>
+        >Valider la publication</button>
         <button @click="deletePublication()" class="btn btn-danger m-1">Supprimer</button>
     </div>    
     </div>

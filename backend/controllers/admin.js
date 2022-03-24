@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
-const { response } = require("../app");
 const models = require("../models");
+const fs = require("fs");
 
 exports.getPublications = (req, res, next) => {
   models.Publication.findAll({
@@ -30,7 +30,7 @@ exports.getAllUsers = (req, res, next) => {
   }).then(function (user) {
     if (user.isAdmin === true) {
       models.User.findAll({
-        where: { status: 0 },
+        where: { status: 0, isAdmin: false },
       })
         .then(function (users) {
           res.status(200).json({ users });
@@ -138,17 +138,26 @@ exports.deleteUserAdmin = (req, res, next) => {
     if (user.isAdmin === true) {
       models.User.findOne({
         where: { id: customerId },
-      })
-        .then(function (userFound) {
-          userFound
-            .destroy({
-              where: { id: customerId },
-            })
-            .then(res.status(200).json({ message: "Utilisateur supprimer" }));
-        })
-        .catch(function (err) {
-          res.status(400).json(console.log(err));
-        });
+      }).then(function (userFound) {
+        if (userFound.avatar !== null) {
+          const filename = userFound.avatar.split("/images/")[1];
+          fs.unlink(`images/${filename}`, () => {
+            userFound
+              .destroy({ where: { id: customerId } })
+              .then(res.status(200).json({ message: "Utilisateur supprimer" }))
+              .catch(function (err) {
+                res.status(400).json(console.log(err));
+              });
+          });
+        } else {
+            userFound
+              .destroy({ where: { id: customerId } })
+              .then(res.status(200).json({ message: "Utilisateur supprimer" }))
+              .catch(function (err) {
+                res.status(400).json(console.log(err));
+              });          
+        }
+      });
     } else {
       res.status(403).json({
         message: "Vous n'êtes pas autorisé à effectuer cette requête.",
@@ -201,7 +210,7 @@ exports.deleteComment = (req, res, next) => {
   models.User.findOne({
     where: { id: userId },
   }).then(function (user) {
-    console.log(user)
+    console.log(user);
     if (user.isAdmin === true) {
       models.Commentaire.findOne({
         attributes: ["id"],
@@ -216,7 +225,11 @@ exports.deleteComment = (req, res, next) => {
           res.status(500).json({ err });
         });
     } else {
-      res.status(403).json({ message:"Vous n'êtes pas autorisé à effectuer cette requête." });
+      res
+        .status(403)
+        .json({
+          message: "Vous n'êtes pas autorisé à effectuer cette requête.",
+        });
     }
   });
 };
@@ -231,22 +244,33 @@ exports.deletePublication = (req, res, next) => {
   models.User.findOne({
     where: { id: userId },
   }).then(function (user) {
-    console.log(user)
+    console.log(user);
     if (user.isAdmin === true) {
       models.Publication.findOne({
-        attributes: ["id"],
         where: { id: publicationId },
       })
         .then(function (publicationFound) {
-          publicationFound
+          if(publicationFound.image !== null){
+            const filename = publicationFound.image.split("/images/")[1];
+            fs.unlink(`images/${filename}`, () => {
+              publicationFound.destroy({})
+              .then(res.status(200).json({ message: "Publication supprimer." }));
+            })            
+          } else {
+            publicationFound
             .destroy({})
             .then(res.status(200).json({ message: "Publication supprimé." }));
+          }
         })
         .catch(function (err) {
           res.status(500).json({ err });
         });
     } else {
-      res.status(403).json({ message:"Vous n'êtes pas autorisé à effectuer cette requête." });
+      res
+        .status(403)
+        .json({
+          message: "Vous n'êtes pas autorisé à effectuer cette requête.",
+        });
     }
   });
 };

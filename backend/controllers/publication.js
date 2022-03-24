@@ -3,7 +3,7 @@ const fs = require("fs");
 const models = require("../models");
 
 exports.createPublication = (req, res, next) => {
-  let imageUrl
+  let imageUrl;
   const token = req.headers.authorization;
   const decodedToken = jwt.verify(token, `${process.env.SECRET_KEY}`);
   const userId = decodedToken.userId;
@@ -11,36 +11,62 @@ exports.createPublication = (req, res, next) => {
   models.User.findOne({
     where: { id: userId },
   })
-    .then(user => {
-      if(user !== null) {
+    .then((user) => {
+      if (user !== null && user.isAdmin === true) {
         let message = req.body.message;
-        if(req.file != undefined){
-          imageUrl = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+        if (req.file != undefined) {
+          imageUrl = `${req.protocol}://${req.get("host")}/images/${
+            req.file.filename
+          }`;
         } else {
-          imageUrl == null
-        };
-        if((message == null && imageUrl == null)){
-          res.status(400).json({ error : 'Rien à publier.'})
+          imageUrl == null;
+        }
+        if (message == null && imageUrl == null) {
+          res.status(400).json({ error: "Rien à publier." });
         } else {
-          let date = new Date()
+          let date = new Date();
+          models.Publication.create({
+            UserId: userId,
+            message: message,
+            image: imageUrl,
+            status: 1,
+          })
+            .then((newMessage) => {
+              res.status(201).json(newMessage);
+            })
+            .catch((err) => {
+              res.status(500).json(err);
+            });
+        }
+      } else {
+        let message = req.body.message;
+        if (req.file != undefined) {
+          imageUrl = `${req.protocol}://${req.get("host")}/images/${
+            req.file.filename
+          }`;
+        } else {
+          imageUrl == null;
+        }
+        if (message == null && imageUrl == null) {
+          res.status(400).json({ error: "Rien à publier." });
+        } else {
+          let date = new Date();
           models.Publication.create({
             UserId: userId,
             message: message,
             image: imageUrl,
             status: 0,
           })
-            .then((newMessage) =>{
-              res.status(201).json(newMessage)
+            .then((newMessage) => {
+              res.status(201).json(newMessage);
             })
             .catch((err) => {
-              res.status(500).json(err)
-            })
-        };
-      } else {
-        res.status(400).json(error);
+              res.status(500).json(err);
+            });
+        }
       }
     })
-    .catch(error => res.status(500).json(error))
+    .catch((error) => res.status(500).json(error));
 };
 
 exports.getPublicationId = (req, res, next) => {
@@ -48,7 +74,7 @@ exports.getPublicationId = (req, res, next) => {
 
   models.Publication.findOne({
     include: models.User,
-    attributes: ["UserId","message", "image", "id", "createdAt"],
+    attributes: ["UserId", "message", "image", "id", "createdAt"],
     where: { id: publicationId },
   })
     .then(function (publication) {
@@ -66,8 +92,8 @@ exports.getPublicationId = (req, res, next) => {
 exports.getPublications = (req, res, next) => {
   models.Publication.findAll({
     include: models.User,
-    attributes: ["UserId","message", "image", "id", "createdAt"],
-    where: { status: 1},
+    attributes: ["UserId", "message", "image", "id", "createdAt"],
+    where: { status: 1 },
   })
     .then(function (publication) {
       if (publication) {
@@ -101,9 +127,7 @@ exports.modifyMessage = (req, res, next) => {
         .then(res.status(201).json({ message: "Mise à jour effectué." }));
     })
     .catch(function (err) {
-      res
-        .status(400)
-        .json({ err });
+      res.status(400).json({ err });
     });
 };
 
@@ -117,16 +141,16 @@ exports.deletePublication = (req, res, next) => {
     where: { id: publicationId, UserId: userId },
   })
     .then(function (publicationFound) {
-      if (publicationFound.image) {
+      if (publicationFound.image !== null) {
         const filename = publicationFound.image.split("/images/")[1];
         fs.unlink(`images/${filename}`, () => {
-          models.Publication.destroy({
-            where: { id: publicationId  },
+          publicationFound.destroy({
+            where: { id: publicationId },
           }).then(res.status(200).json({ message: "Publication supprimer." }));
-        });
+        })
       } else {
-        models.Publication.destroy({
-          where: { id: publicationId  },
+        publicationFound.destroy({
+          where: { id: publicationId },
         }).then(res.status(200).json({ message: "Publication supprimer." }));
       }
     })

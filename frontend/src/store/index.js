@@ -34,6 +34,7 @@ export default createStore({
       username: "",
       bio: "",
       isAdmin: "",
+      avatar:""
     },
 
     publicationInfos: {

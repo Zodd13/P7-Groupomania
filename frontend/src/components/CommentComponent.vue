@@ -33,14 +33,22 @@ export default {
             }
         },
     },
-    methods:{
-        deleteComment(){
-            this.$store.dispatch('deleteComment', {id: this.id})
-            window.alert('Votre commentaire a bien été supprimer, vous allez être rediriger.')
-            this.$router.push('/home')
+    methods: {
+        deleteComment() {
+            if (window.confirm("Êtes vous sûr de vouloir supprimer ce commentaire ?")) {
+                this.$store.dispatch('deleteComment', { id: this.id })
+                window.alert('Votre commentaire a bien été supprimer, vous allez être rediriger.')
+                this.$router.push('/home')
+            }
         },
-
-        goToUpdate(id){
+        deleteCommentAdmin() {
+        if (window.confirm("Êtes vous sûr de vouloir supprimer ce commentaire ?")){
+            this.$store.dispatch('deleteCommentAdmin', { id: this.id })
+            window.alert('Votre commentaire a bien été supprimer.')
+            this.$router.push('/home')
+        }
+        },
+        goToUpdate(id) {
             this.$router.push('/updatecomment/' + id)
         },
     }
@@ -48,53 +56,70 @@ export default {
 </script>
 
 <template>
-    <div v-if="componentLoaded === true" class="d-flex card">
-        <p id="commentary__username" class="badge bg-secondary mr-2">{{ comment.User.username }} :</p>
-        <div class="dropdown-divider"></div>
-        <p class="m-0">{{ comment.comment }}</p>
-        <div v-if="this.$store.state.user.userId === this.comment.userId">
-            <span @click="deleteComment()" class="delete__button">
-                Supprimer
-            </span>
-            <span @click="goToUpdate(id)" class="edit__button">
-                 Modifier
-            </span>
+    <div class="main--container" v-if="componentLoaded === true">
+        <div class="d-flex card">
+            <p
+                id="commentary__username"
+                class="badge bg-secondary mr-2"
+            >{{ comment.User.username }} :</p>
+            <div class="dropdown-divider"></div>
+            <p class="m-0">{{ comment.comment }}</p>
+            <div v-if="this.$store.state.user.userId === this.comment.userId">
+                <span @click="deleteComment()" class="delete__button">Supprimer</span>
+                <span @click="goToUpdate(id)" class="edit__button">Modifier</span>
+            </div>
+            <div v-if="this.$store.state.user.isAdmin === true">
+                <span @click="deleteCommentAdmin()" class="delete__button">Supprimer</span>
+            </div>
         </div>
     </div>
     <div v-else></div>
 </template>
 
 <style lang="scss" scoped>
-.d-flex{
-    width: 20%;
+.d-flex {
+    width: 50%;
     margin: 1rem auto auto auto;
     height: auto;
     box-shadow: 10px 5px 5px #c7c7c700;
 }
-.delete__button{
+.delete__button {
     position: absolute;
     top: 25%;
     right: 5%;
     color: rgb(161, 40, 3);
     font-size: 0.8rem;
     cursor: pointer;
-        &:hover{
+    &:hover {
         color: red;
     }
 }
-.edit__button{
+
+.main--container {
+    width: 70%;
+    background: #eae7e152;
+    border: 1px solid #0000003f;
+    margin: auto;
+    height: 100vh;
+}
+.edit__button {
     position: absolute;
     top: 5%;
     right: 5%;
     font-size: 0.8rem;
     color: rgb(126, 132, 134);
     cursor: pointer;
-        &:hover{
+    &:hover {
         color: rgb(57, 131, 153);
     }
 }
-#commentary__username{
+#commentary__username {
     width: 4rem;
     margin: 0.5rem;
+}
+@media (max-width: 768px) {
+    .card {
+        width: auto;
+    }
 }
 </style>

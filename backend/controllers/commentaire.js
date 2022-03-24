@@ -14,13 +14,20 @@ exports.createComment = (req, res, next) => {
             where: { id: userId },
         })
         .then(function(user) {
-            if (user) {
+            if (user.isAdmin === true) {
+                models.Commentaire.create({
+                    UserId: userId,
+                    PublicationId: publicationId,
+                    comment: comment,
+                    status: 1,
+                });
+            } else {
                 models.Commentaire.create({
                     UserId: userId,
                     PublicationId: publicationId,
                     comment: comment,
                     status: 0,
-                });
+                });               
             }
         })
         .then(function(createComment) {

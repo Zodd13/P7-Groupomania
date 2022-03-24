@@ -37,7 +37,7 @@ export default {
     <div v-if="user.isAdmin == true" class="container-sm" id="container__admin">
         <h4>Bienvenue sur la page d'administration</h4>
         <p>Vous verrez ici toutes les publications en attente de modération.</p>
-        <p>Pour valider une publication, cliquez d'abord sur la publication puis ensuite sur le bouton plus.</p>
+        <p>Pour valider une publication, cliquez d'abord sur la publication puis ensuite sur le bouton valider.</p>
         <p>Vous pouvez si vous jugez que c'est nécessaire, supprimer cette publication.</p>
     </div>
     
@@ -45,7 +45,7 @@ export default {
     <router-link to="/admincommentaires/">Valider les commentaires</router-link>
     <router-link to="/adminuser/"> Bannir des utilisateurs</router-link>
     </nav>
-    <h5>Publications en attente ..</h5>
+    <h5>Publications en attente de validation ..</h5>
     <div class="container-sm" v-if="user.isAdmin == true">
         <div
             v-for="message in messages"
