@@ -1,7 +1,7 @@
 <script>
 let moment = require('moment');
-
 import { mapState } from "vuex";
+
 export default {
     name: "ReadPublication",
     data() {
@@ -92,14 +92,14 @@ export default {
     <div class="card">
         <div class="card-body">
             <span class="d-flex align-items-center fw-bold">
-            <img
-                v-if="message.User.avatar !== null"
-                :src="message.User.avatar"
-                class="rounded-circle"
-                alt="Avatar de profile"
-                width="40"
-                height="40"
-            />
+                <img
+                    v-if="message.User.avatar !== null"
+                    :src="message.User.avatar"
+                    class="rounded-circle"
+                    alt="Avatar de profile"
+                    width="40"
+                    height="40"
+                />
                 <img
                     v-else
                     src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
@@ -108,7 +108,7 @@ export default {
                 />
                 {{ message.User.username }}
                 à publier
-                </span>
+            </span>
             <span
                 @click="goToUpdate(id)"
                 class="edit__button"
@@ -125,14 +125,13 @@ export default {
                 @click="deletePublicationAdmin(id)"
                 v-if="this.$store.state.user.isAdmin === true"
             >Supprimer</span>
-            <span class="delete__button"></span>
             <div class="dropdown-divider"></div>
             <div class="card-text d-flex justify-content-between align-items-md-center">
                 <p class="card-text d-flex flex-start">{{ message.message }}</p>
             </div>
             <span class="message__date">{{ moment(message.createdAt).locale('fr').fromNow() }}</span>
         </div>
-        <img v-if="message.image !== null" class="card-img-top" alt="..." :src="message.image" />
+        <img v-if="message.image !== null" class="card-img-top" alt="Photo de publication" :src="message.image" />
         <div class="dropdown-divider"></div>
         <h6 class="comment__title">Commentaires</h6>
         <div class="cards">
@@ -143,13 +142,13 @@ export default {
                 placeholder="Un commentaire ?"
                 aria-label="Votre message"
             />
-
-            <button
+            <button v-if="this.comment.comments.length < 120"
                 id="send__button"
                 @click="createComment()"
                 type="button"
                 class="btn btn-secondary"
             >Envoyez</button>
+            <span v-else class="text-danger">Votre commentaire est trop long.</span>
         </div>
         <div
             @click="goToComment(comment.id)"
@@ -158,12 +157,27 @@ export default {
             v-for="(comment) in comments"
             :key="comment.id"
         >
-            <p
-                id="commentary__username"
-                class="badge bg-secondary mr-2"
-            >{{ comment.User.username }} :</p>
-            <p class="comment--text m-0 position-relative">{{ comment.comment }}</p>
+            <p id="commentary__username" class="d-flex align-items-center m-0 fw-bold">
+                <img
+                    v-if="comment.User.avatar !== null"
+                    :src="comment.User.avatar"
+                    class="rounded-circle"
+                    alt="Avatar de profile"
+                    width="40"
+                    height="40"
+                />
+                <img
+                    v-else
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                    class="img-fluid profile-image"
+                    width="70"
+                />
+                {{ comment.User.username }}
+                
+            </p>
             <span class="material-icons position-absolute">more_horiz</span>
+            <p class="comment--text m-0 position-relative">{{ comment.comment }}</p>
+            <span class="comment--date">{{ moment(comment.createdAt).locale('fr').fromNow() }}</span>
         </div>
     </div>
 </div>
@@ -172,11 +186,14 @@ export default {
 </div>
 </template>
 <style lang="scss" scoped>
+.comment--date{
+    align-self: flex-end;
+}
 .comment__title {
     margin-bottom: 0rem;
     margin-top: 0.5rem;
 }
-img{
+img {
     margin-right: 0.5rem;
 }
 .main--container {
@@ -184,7 +201,8 @@ img{
     background: #eae7e152;
     border: 1px solid #0000003f;
     margin: auto;
-    height: 100vh;
+    height: fit-content;
+    min-height: 100vh;
 }
 .card {
     box-shadow: 10px 5px 5px #c7c7c700;
@@ -195,11 +213,11 @@ img{
     margin: 0.5rem;
 }
 #commentary__list {
-    background-color: rgba(255, 255, 255, 0.685);
-    border: 1px solid rgba(0, 0, 0, 0.068);
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: rgba(75, 75, 75, 0.075);
     margin: 0.8rem;
-    width: 80%;
-    align-items: center;
+    width: 90%;
     padding: 0.5rem;
     border-radius: 0.3rem;
     cursor: pointer;
@@ -209,13 +227,16 @@ img{
         border: 1.6px solid rgba(0, 0, 0, 0.178);
     }
     #commentary__username {
+        width: 100%;
         margin-right: 1rem;
     }
 }
-.comment--text{
+.comment--text {
+    margin-left: 3rem !important;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap;
+    white-space: normal;
+    max-width: 70%;
 }
 .material-icons {
     right: 9%;
@@ -243,6 +264,11 @@ img{
 .card-body {
     position: relative;
 }
+.card-img-top{
+    max-height: 300px;
+    max-width: fit-content;
+    margin: auto;
+}
 .edit__button {
     position: absolute;
     top: 5%;
@@ -265,20 +291,11 @@ img{
         color: red;
     }
 }
-.badge {
-    display: flex;
-    align-content: flex-start;
-    margin: 0.2rem;
-    width: fit-content;
-}
 p.card-text {
     margin: 0.2rem;
 }
 
 @media (max-width: 768px) {
-    .btn {
-        width: 40%;
-    }
     .card {
         width: auto;
     }

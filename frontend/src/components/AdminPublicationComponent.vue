@@ -62,6 +62,7 @@ export default {
 }
 </script>
 <template>
+    <h6 class="mt-5">Ici vous pouvez valider une publication ou la supprimer</h6>
     <div class="container-sm" v-if="componentLoaded === true">
         <div class="card-body">
             <span class="badge bg-secondary">{{ message.User.username }}</span>
@@ -93,38 +94,6 @@ export default {
     padding: 1rem;
     border-radius: 0.5rem;
 }
-.message__date {
-    font-size: 1rem;
-    position: absolute;
-    bottom: 5%;
-    right: 1%;
-}
-.card-body {
-    position: relative;
-    padding: 0;
-}
-.edit__button {
-    position: absolute;
-    top: 5%;
-    right: 5%;
-    font-size: 0.8rem;
-    color: rgb(126, 132, 134);
-    cursor: pointer;
-    &:hover {
-        color: rgb(57, 131, 153);
-    }
-}
-.delete__button {
-    position: absolute;
-    top: 25%;
-    right: 5%;
-    color: rgb(161, 40, 3);
-    font-size: 0.8rem;
-    cursor: pointer;
-    &:hover {
-        color: red;
-    }
-}
 .badge {
     display: flex;
     align-content: flex-start;
@@ -133,6 +102,7 @@ export default {
 }
 p.card-text {
     margin: 0.2rem;
+    font-size: 1rem;
 }
 @media (max-width: 768px) {
     .btn {

@@ -24,7 +24,7 @@ export default {
     },
     computed: {
         validated() {
-            if (this.post.message !== '') {
+            if (this.post.message !== '' && this.post.message.length < 240) {
                 return true;
             } else {
                 return false;
@@ -158,6 +158,11 @@ export default {
 </div>
 </template>
 <style lang="scss" scoped>
+.card-img-top{
+    max-height: 300px;
+    max-width: fit-content;
+    margin: auto;
+}
 .img-fluid{
     margin-right: 1rem;
 }

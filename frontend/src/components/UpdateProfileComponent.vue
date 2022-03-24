@@ -1,6 +1,6 @@
 <script>
 import useValidate from "@vuelidate/core"
-import { required, minLength, helpers } from "@vuelidate/validators"
+import { required, minLength, maxLength,helpers } from "@vuelidate/validators"
 import { reactive, computed } from "vue"
 export default {
     setup() {
@@ -18,8 +18,8 @@ export default {
         const rules = computed(() => {
             return {
                 user: {
-                    username: { required, minLength: helpers.withMessage("Votre nom d'utilisateur est trop court.", minLength(3)) },
-                    bio: { minLength: helpers.withMessage("Votre bio est trop courte.", minLength(3)) }
+                    username: { required, minLength: helpers.withMessage("Votre nom d'utilisateur est trop court.", minLength(3)),  maxLength: helpers.withMessage("Votre nom d'utilisateur est trop long!", maxLength(20)) },
+                    bio: { minLength: helpers.withMessage("Votre bio est trop courte.", minLength(3)), maxLength: helpers.withMessage("Votre bio est trop longue !", maxLength(40))},
                 }
             };
         });

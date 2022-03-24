@@ -83,7 +83,6 @@ nav{
 }
 .message__date{
     font-size: 1rem;
-    position: absolute;
     bottom: 5%;
     right: 1%;
 }
@@ -104,6 +103,7 @@ nav{
 }
 p.card-text{
     margin: 0.2rem;
+    font-size: 1rem;
 }
 #container__admin{
     width: 60%;

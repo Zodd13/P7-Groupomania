@@ -130,7 +130,6 @@ exports.updateUser = (req, res, next) => {
 
   let avatarUrl;
   let username = req.body.username;
-  let email = req.body.email;
   let bio = req.body.bio;
 
   models.User.findOne({
@@ -149,7 +148,7 @@ exports.updateUser = (req, res, next) => {
             })
             .then(res.status(201).json({ message: "Profil mis à jour." }));
         });
-      } if (userFound.avatar === null) {
+      } if (userFound.avatar === null && req.file !== undefined) {
         avatarUrl = `${req.protocol}://${req.get("host")}/images/${
           req.file.filename
         }`;
@@ -164,7 +163,6 @@ exports.updateUser = (req, res, next) => {
           .update({
             bio: bio,
             username: username,
-            email: email,
           })
           .then(res.status(201).json({ message: "Profil mis à jour." }));
       }

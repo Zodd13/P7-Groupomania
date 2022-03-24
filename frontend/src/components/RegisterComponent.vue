@@ -1,6 +1,6 @@
 <script>
 import useValidate from "@vuelidate/core";
-import { required, email, minLength, helpers } from "@vuelidate/validators";
+import { required, email, minLength, maxLength, helpers } from "@vuelidate/validators";
 import { mapState } from "vuex";
 import { reactive, computed } from 'vue';
 
@@ -18,8 +18,8 @@ export default {
         const rules = computed(() => {
             return {
             email: { required, email:helpers.withMessage('Votre adresse e-mail est incorrect ou existe déjà.', email) },
-            username: { required, minLength: helpers.withMessage("Votre nom d'utilisateur est trop court.", minLength(3)) },
-            password: { required, minLength: helpers.withMessage("Votre mot de passe est trop court. Il doit être compris entre 4 et 20 caractère et contenir au moins un chiffre.", minLength(3)) },
+            username: { required, minLength: helpers.withMessage("Votre nom d'utilisateur est trop court.", minLength(3)), maxLength: helpers.withMessage("Votre nom d'utilisateur est trop long.", maxLength(20)) },
+            password: { required, minLength: helpers.withMessage("Votre mot de passe est trop court. Il doit être compris entre 4 et 20 caractère et contenir au moins un chiffre.", minLength(3)), maxLength: helpers.withMessage("Votre mot de passe est trop long.", maxLength(20)) },
             }
         })
 
