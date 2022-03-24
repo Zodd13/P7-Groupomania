@@ -1,10 +1,12 @@
 <script>
-import { mapState } from "vuex";
+let moment = require('moment');
 
+import { mapState } from "vuex";
 export default {
     name: "ReadPublication",
     data() {
         return {
+            moment: moment,
             componentLoaded: false,
             list: [this.$store.dispatch('allPublications')],
             listComment: '',
@@ -105,7 +107,7 @@ export default {
                     width="70"
                 />
                 {{ message.User.username }}
-                
+                à publier
                 </span>
             <span
                 @click="goToUpdate(id)"
@@ -128,7 +130,7 @@ export default {
             <div class="card-text d-flex justify-content-between align-items-md-center">
                 <p class="card-text d-flex flex-start">{{ message.message }}</p>
             </div>
-            <span class="message__date">{{ message.createdAt.split('T')[0] }}</span>
+            <span class="message__date">{{ moment(message.createdAt).locale('fr').fromNow() }}</span>
         </div>
         <img v-if="message.image !== null" class="card-img-top" alt="..." :src="message.image" />
         <div class="dropdown-divider"></div>
@@ -160,7 +162,7 @@ export default {
                 id="commentary__username"
                 class="badge bg-secondary mr-2"
             >{{ comment.User.username }} :</p>
-            <p class="m-0 position-relative">{{ comment.comment }}</p>
+            <p class="comment--text m-0 position-relative">{{ comment.comment }}</p>
             <span class="material-icons position-absolute">more_horiz</span>
         </div>
     </div>
@@ -186,9 +188,8 @@ img{
 }
 .card {
     box-shadow: 10px 5px 5px #c7c7c700;
-    width: 30%;
+    width: 50%;
     margin: 1rem auto auto auto;
-    width: 30%;
 }
 #send__button {
     margin: 0.5rem;
@@ -197,6 +198,7 @@ img{
     background-color: rgba(255, 255, 255, 0.685);
     border: 1px solid rgba(0, 0, 0, 0.068);
     margin: 0.8rem;
+    width: 80%;
     align-items: center;
     padding: 0.5rem;
     border-radius: 0.3rem;
@@ -209,6 +211,11 @@ img{
     #commentary__username {
         margin-right: 1rem;
     }
+}
+.comment--text{
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }
 .material-icons {
     right: 9%;
@@ -267,6 +274,7 @@ img{
 p.card-text {
     margin: 0.2rem;
 }
+
 @media (max-width: 768px) {
     .btn {
         width: 40%;

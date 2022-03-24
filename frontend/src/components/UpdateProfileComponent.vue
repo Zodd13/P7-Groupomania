@@ -10,6 +10,7 @@ export default {
                 username: "",
                 bio: "",
                 avatar: "",
+                imageData: ""
             },
         });
         // Message d'erreur personnalisé
@@ -54,6 +55,17 @@ export default {
         getFile() {
             this.state.user.avatar = this.$refs.image.files[0];
         },
+        inputPreview(e) {
+            this.state.user.avatar = this.$refs.image.files[0] || e.dataTransfer.files;
+            let input = event.target;
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+                reader.onload = (e) => {
+                    this.state.user.imageData = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0])
+            }
+        },
         update() {
             this.v$.$validate();
             if (this.v$.$error) {
@@ -78,19 +90,21 @@ export default {
     <div class="container d-flex justify-content-center mt-3">
         <div class="card">
             <div class="top-container">
-                <img
-                    v-if="state.user.avatar !== null"
-                    :src="state.user.avatar"
-                    class="rounded-circle mb-3"
-                    alt="Avatar de profile"
-                    width="70"
-                    height="70"
-                />
+                <div class="image-preview" id="imagePreview" v-if="state.user.imageData.length > 0">
+                    <img
+                        :src="state.user.imageData"
+                        class="rounded-circle mb-3"
+                        width="70"
+                        height="70"
+                    />
+                </div>
                 <form method="update" @submit.prevent="update()">
                     <div>
                         <span>Photo de profil</span>
                         <label for="image" class="mb-2">
-                            <span class="text--profile d-flex m-0 p-2 align-items-center">Séléctionner votre avatar</span>
+                            <span
+                                class="text--profile d-flex m-0 p-2 align-items-center"
+                            >Séléctionner votre avatar</span>
                             <span
                                 class="material-icons ml-0 p-1 d-flex align-items-center"
                             >account_circle</span>
@@ -118,7 +132,7 @@ export default {
                         name="image"
                         ref="image"
                         accept="image/*"
-                        v-on:change="getFile()"
+                        v-on:change="inputPreview()"
                     />
 
                     <div>
@@ -136,10 +150,7 @@ export default {
                         >{{ v$.user.bio.$errors[0].$message }}</span>
                     </div>
 
-                    <button
-                        type="submit"
-                        class="btn btn-success mt-2"
-                    >Valider vos changements</button>
+                    <button type="submit" class="btn btn-success mt-2">Valider vos changements</button>
                 </form>
             </div>
         </div>
@@ -157,7 +168,7 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     padding: 2rem !important;
 }
-.text--profile{
+.text--profile {
     font-size: 0.8rem;
 }
 .btn {

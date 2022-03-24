@@ -24,7 +24,6 @@ exports.createPublication = (req, res, next) => {
         if (message == null && imageUrl == null) {
           res.status(400).json({ error: "Rien à publier." });
         } else {
-          let date = new Date();
           models.Publication.create({
             UserId: userId,
             message: message,

@@ -42,11 +42,11 @@ export default {
             }
         },
         deleteCommentAdmin() {
-        if (window.confirm("Êtes vous sûr de vouloir supprimer ce commentaire ?")){
-            this.$store.dispatch('deleteCommentAdmin', { id: this.id })
-            window.alert('Votre commentaire a bien été supprimer.')
-            this.$router.push('/home')
-        }
+            if (window.confirm("Êtes vous sûr de vouloir supprimer ce commentaire ?")) {
+                this.$store.dispatch('deleteCommentAdmin', { id: this.id })
+                window.alert('Votre commentaire a bien été supprimer.')
+                this.$router.push('/home')
+            }
         },
         goToUpdate(id) {
             this.$router.push('/updatecomment/' + id)
@@ -60,10 +60,25 @@ export default {
         <div class="d-flex card">
             <p
                 id="commentary__username"
-                class="badge bg-secondary mr-2"
-            >{{ comment.User.username }} :</p>
+                class="badge mr-2"
+            >
+            <img
+                v-if="comment.User.avatar !== null"
+                :src="comment.User.avatar"
+                class="rounded-circle"
+                alt="Avatar de profile"
+                width="40"
+                height="40"
+            />
+            <img
+                v-else
+                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                class="img-fluid profile-image"
+                width="70"
+            />
+            {{ comment.User.username }} :</p>
             <div class="dropdown-divider"></div>
-            <p class="m-0">{{ comment.comment }}</p>
+            <p class="m-0 p-3">{{ comment.comment }}</p>
             <div v-if="this.$store.state.user.userId === this.comment.userId">
                 <span @click="deleteComment()" class="delete__button">Supprimer</span>
                 <span @click="goToUpdate(id)" class="edit__button">Modifier</span>
@@ -114,8 +129,10 @@ export default {
     }
 }
 #commentary__username {
-    width: 4rem;
+    width: fit-content;
     margin: 0.5rem;
+    color: black;
+    font-size: 1rem;
 }
 @media (max-width: 768px) {
     .card {

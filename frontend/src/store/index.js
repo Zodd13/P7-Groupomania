@@ -44,6 +44,7 @@ export default createStore({
       image: "",
       username: '',
       status: '',
+      createdAt:""
     },
   },
 

@@ -1,10 +1,12 @@
 <script>
 import { mapState } from "vuex";
+let moment = require('moment')
 
 export default {
     data() {
         return {
             list: [this.$store.dispatch('allPublications')],
+            moment:moment,
             post: {
                 message: '',
                 image: '',
@@ -145,7 +147,7 @@ export default {
             <div class="card-text d-flex justify-content-between align-items-md-center">
                 <p class="card-text d-flex flex-start">{{ message.message }}</p>
             </div>
-            <span class="message__date">{{ message.createdAt.split('T')[0] }}</span>
+            <span class="message__date">{{ moment(message.createdAt).locale('fr').fromNow() }}</span>
         </div>
         <img v-if="message.image !== null" class="card-img-top" alt="..." :src="message.image" />
                     <div class="dropdown-divider"></div>

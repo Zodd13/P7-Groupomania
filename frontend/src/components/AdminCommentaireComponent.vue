@@ -1,9 +1,11 @@
 <script>
 import { mapState } from "vuex";
+let moment = require("moment")
 
 export default{
     data(){
         return {
+            moment:moment,
             listComment : '',
         }
     },
@@ -54,7 +56,7 @@ export default{
                 <div class="dropdown-divider"></div>
                 <div class="card-text d-flex justify-content-between align-items-md-center">
                     <p class="card-text d-flex flex-start">{{ comment.comment }}</p>
-                    <span class="message__date">{{ comment.createdAt.split('T')[0] }}</span>
+                    <span class="message__date">{{ moment(comment.createdAt).locale('fr').fromNow() }}</span>
                 </div>
             </div>
         </div>
