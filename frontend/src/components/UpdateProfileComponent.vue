@@ -100,7 +100,7 @@ export default {
                 </div>
                 <form method="update" @submit.prevent="update()">
                     <div>
-                        <span>Photo de profil</span>
+                        <p>Photo de profil</p>
                         <label for="image" class="mb-2">
                             <span
                                 class="text--profile d-flex m-0 p-2 align-items-center"
@@ -109,7 +109,7 @@ export default {
                                 class="material-icons ml-0 p-1 d-flex align-items-center"
                             >account_circle</span>
                         </label>
-                        <span>Nom d'utilisateur</span>
+                        <p>Nom d'utilisateur</p>
                         <input
                             v-model="state.user.username"
                             type="bio"
@@ -123,8 +123,6 @@ export default {
                         >{{ v$.user.username.$errors[0].$message }}</span>
                     </div>
 
-                    <!---------- test input avatar -------->
-
                     <input
                         class="form-control mt-1"
                         type="file"
@@ -136,7 +134,7 @@ export default {
                     />
 
                     <div>
-                        <span>Biographie</span>
+                        <p>Biographie</p>
                         <input
                             v-model="state.user.bio"
                             type="bio"

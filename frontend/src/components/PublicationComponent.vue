@@ -89,9 +89,10 @@ export default {
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 </head>
 <div class="main--container" v-if="componentLoaded === true">
+        <h6 class="mt-3">Publication</h6>
     <div class="card">
         <div class="card-body">
-            <span class="d-flex align-items-center fw-bold">
+            <div class="d-flex align-items-center fw-bold">
                 <img
                     v-if="message.User.avatar !== null"
                     :src="message.User.avatar"
@@ -108,7 +109,7 @@ export default {
                 />
                 {{ message.User.username }}
                 à publier
-            </span>
+            </div>
             <span
                 @click="goToUpdate(id)"
                 class="edit__button"
@@ -126,10 +127,11 @@ export default {
                 v-if="this.$store.state.user.isAdmin === true"
             >Supprimer</span>
             <div class="dropdown-divider"></div>
-            <div class="card-text d-flex justify-content-between align-items-md-center">
-                <p class="card-text d-flex flex-start">{{ message.message }}</p>
+            <div class="card-text d-flex justify-content-between align-items-md-center flex-column">
+                <p class="card-text d-flex flex-start fw-bold">{{ message.message }}</p>
+            <span>{{ moment(message.createdAt).locale('fr').fromNow() }}</span>
+
             </div>
-            <span class="message__date">{{ moment(message.createdAt).locale('fr').fromNow() }}</span>
         </div>
         <img v-if="message.image !== null" class="card-img-top" alt="Photo de publication" :src="message.image" />
         <div class="dropdown-divider"></div>
@@ -205,7 +207,8 @@ img {
     min-height: 100vh;
 }
 .card {
-    box-shadow: 10px 5px 5px #c7c7c700;
+    box-shadow: 10px 5px 5px #c7c7c741;
+    border: 1px rgba(0, 0, 0, 0.281) solid;
     width: 50%;
     margin: 1rem auto auto auto;
 }
@@ -231,6 +234,7 @@ img {
         margin-right: 1rem;
     }
 }
+
 .comment--text {
     margin-left: 3rem !important;
     text-overflow: ellipsis;
@@ -299,5 +303,13 @@ p.card-text {
     .card {
         width: auto;
     }
+    .delete__button{
+        top: 1%;
+        left: 1%;
+    }
+    .edit__button{
+        top: 1%;
+    }
+
 }
 </style>

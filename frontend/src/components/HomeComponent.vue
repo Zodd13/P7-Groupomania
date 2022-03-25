@@ -134,7 +134,7 @@ export default {
 <div class="container-sm">
     <div v-for="message in messages" :key="message.id" :message="message" class="card p-2">
         <div class="card-body" @click="publicationId(message.id)">
-            <span class="username--card fw-bold align-items-center">
+            <p class="username--card fw-bold align-items-center">
                 <img v-if="message.User.avatar !== null"
                     :src="message.User.avatar"
                     class="rounded-circle"
@@ -142,12 +142,13 @@ export default {
                     height="50"
                 />
                 <img v-else src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg" class="img-fluid profile-image" width="50" height="50" >
-                {{ message.User.username }} à publié :</span>
+                {{ message.User.username }} à publié :</p>
             <div class="dropdown-divider"></div>
-            <div class="card-text d-flex justify-content-between align-items-md-center">
-                <p class="card-text d-flex flex-start">{{ message.message }}</p>
+            <div class="card-text d-flex justify-content-between align-items-md-center flex-column">
+                <p class="card-text flex-start fw-bold">{{ message.message }}</p>
+            <span>{{ moment(message.createdAt).locale('fr').fromNow() }}</span>
+
             </div>
-            <span class="message__date">{{ moment(message.createdAt).locale('fr').fromNow() }}</span>
         </div>
         <img v-if="message.image !== null" class="card-img-top" alt="..." :src="message.image" />
                     <div class="dropdown-divider"></div>
@@ -188,7 +189,7 @@ export default {
 .container-sm {
     display: flex;
     flex-direction: column;
-    width: 40%;
+    width: 60%;
     margin-top: 0rem;
 }
 input[type="file"] {
@@ -212,12 +213,6 @@ input[type="file"] {
     width: 100%;
     display: flex;
     align-items: center;
-}
-.message__date {
-    font-size: 1rem;
-    position: absolute;
-    bottom: 5%;
-    right: 1%;
 }
 .main--container{
     width: 70%;
@@ -279,6 +274,9 @@ label[for="image"] {
     .publication__input {
         width: auto;
         margin-bottom: 1rem;
+    }
+    .username--card{
+        width: auto;
     }
 }
 </style>

@@ -52,9 +52,25 @@ export default{
             style="width: 18rem;"
         >
             <div class="card-body"  @click="commentId(comment.id)">
-                <span class="badge bg-secondary">{{ comment.User.username }}</span>
+            <div class="d-flex flex-row align-items-center">
+                  <img
+                        v-if="user.avatar !== null"
+                        :src="user.avatar"
+                        class="rounded-circle"
+                        width="50"
+                        height="50"
+                    />
+                    <img
+                        v-else
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                        class="img-fluid profile-image"
+                        width="50"
+                        height="50"
+                    />
+                <p class="m-0 fw-bold">{{ comment.User.username }}</p>
+            </div>
                 <div class="dropdown-divider"></div>
-                <div class="card-text d-flex justify-content-between align-items-md-center">
+                <div class="card-text d-flex justify-content-between align-items-md-center flex-column">
                     <p class="card-text d-flex flex-start">{{ comment.comment }}</p>
                     <span class="message__date">{{ moment(comment.createdAt).locale('fr').fromNow() }}</span>
                 </div>
@@ -65,32 +81,30 @@ export default{
 
 
 <style lang="scss" scoped>
+.m-0{
+    font-size: 1rem;
+}
 .container-sm{
     width: 30%;
 }
 .message__date{
-    font-size: 1rem;
-    position: absolute;
-    bottom: 5%;
-    right: 1%;
+    font-size: 0.9rem;
 }
 .card{
     width: 100% !important;
     font-size: 1.5rem;
     margin-top: 1rem;
+    box-shadow: 10px 5px 5px #c7c7c741;
+    width: auto;
+    margin-bottom: 2rem;
+    border: 1px rgba(0, 0, 0, 0.281) solid;
 }
 .card-body{
-    position: relative;
     cursor: pointer;
-}
-.badge{
-    display: flex;
-    align-content: flex-start;
-    margin: 0.2rem;
-    width: fit-content;
 }
 p.card-text{
     margin: 0.2rem;
+    font-size: 1.3rem;
 }
 #container__admin{
     width: 60%;

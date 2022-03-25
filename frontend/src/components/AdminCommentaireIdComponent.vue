@@ -50,8 +50,24 @@ export default {
 
 <template>
     <h4 class="mt-4">Commentaire à valider</h4>
-    <div v-if="componentLoaded === true" class="d-flex card">
-        <p class="badge bg-secondary mr-2">Utilisateur : {{ comment.User.username }}</p>
+    <div v-if="componentLoaded === true" class="d-flex card p-3">
+                <div class="d-flex flex-row align-items-center m-0">
+                  <img
+                        v-if="user.avatar !== null"
+                        :src="user.avatar"
+                        class="rounded-circle"
+                        width="50"
+                        height="50"
+                    />
+                    <img
+                        v-else
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                        class="img-fluid profile-image"
+                        width="50"
+                        height="50"
+                    />
+        <p class="m-0 fw-bold">{{ comment.User.username }}</p>
+                </div>
         <div class="dropdown-divider"></div>
         <span class="fw-bold">Commentaire :</span><p class="m-0"> {{ comment.comment }}</p>
     </div>
@@ -74,6 +90,8 @@ export default {
 }
 .card{
     width: 40%;
+    box-shadow: 10px 5px 5px #c7c7c741;
+    border: 1px rgba(0, 0, 0, 0.281) solid;
 }
 @media (max-width: 768px) {
     .btn {

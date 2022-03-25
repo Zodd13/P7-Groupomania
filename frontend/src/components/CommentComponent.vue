@@ -57,6 +57,7 @@ export default {
 
 <template>
     <div class="main--container" v-if="componentLoaded === true">
+        <h6 class="mt-3">Commentaire</h6>
         <div class="d-flex card">
             <p
                 id="commentary__username"
@@ -133,6 +134,12 @@ export default {
     margin: 0.5rem;
     color: black;
     font-size: 1rem;
+}
+.card{
+    box-shadow: 10px 5px 5px #c7c7c741;
+    width: 50%;
+    margin-bottom: 2rem;
+    border: 1px rgba(0, 0, 0, 0.281) solid;
 }
 @media (max-width: 768px) {
     .card {

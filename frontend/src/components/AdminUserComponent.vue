@@ -27,8 +27,10 @@ import { mapState } from "vuex";
 </script>
 
 <template>
-        <h4 class="mt-3"> Vous trouverez ici la liste des utilisateurs du site. Vous pouvez cliquez sur un profil pour le supprimer.</h4>
 
+    <div class="container-sm p-3 mb-3" id="container__admin" >
+                <h5 class="mt-3"> Vous trouverez ici la liste des utilisateurs du site. Vous pouvez cliquez sur un profil pour le supprimer.</h5>
+    </div>
     <div class="container-sm">
                 <div
             v-for="user in user"
@@ -36,12 +38,26 @@ import { mapState } from "vuex";
             class="card p-2 mb-3"
         >
             <div class="card-body" @click="userId(user.id)">
-                <span class="badge bg-secondary">{{ user.username }}</span>
+                <div>
+                    <img
+                        v-if="user.avatar !== null"
+                        :src="user.avatar"
+                        class="rounded-circle"
+                        width="50"
+                        height="50"
+                    />
+                    <img
+                        v-else
+                        src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                        class="img-fluid profile-image"
+                        width="50"
+                        height="50"
+                    />
+                    {{ user.username }}
+                    </div>
                 <div class="dropdown-divider"></div>
-                <div class="card-text d-flex justify-content-between align-items-md-center">
-                    <p class="card-text d-flex flex-start">{{ user.bio }}</p>
+                <div class="card-text d-flex justify-content-center align-items-md-center">
                     <p class="card-text d-flex flex-start">{{ user.email }}</p>
-                    <p class="card-text d-flex flex-start">{{ user.status }}</p>
                 </div>
             </div>
         </div>
@@ -56,6 +72,14 @@ import { mapState } from "vuex";
         transition: ease-in;
         border: 2px solid rgba(0, 0, 0, 0.171);
     }
+}
+
+#container__admin {
+    width: 60%;
+    padding: 0.5rem;
+    background-color: #0000000f;
+    border-radius: 1rem;
+    margin-top: 1rem;
 }
 .container-sm{
     width: 30%;
