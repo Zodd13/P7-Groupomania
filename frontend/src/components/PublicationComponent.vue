@@ -135,7 +135,7 @@ export default {
 				<span
 					@click.prevent="deletePublication(id)"
 					class="delete__button"
-					v-if="this.$store.state.user.userId === this.message.UserId"
+					v-if="this.$store.state.user.userId === this.message.UserId && this.$store.state.user.isAdmin === false"
 					>Supprimer</span
 				>
 				<span
@@ -325,6 +325,7 @@ p.card-text {
 		width: auto;
 	}
 	.delete__button {
+		width: fit-content;
 		top: 1%;
 		left: 1%;
 	}

@@ -61,6 +61,7 @@ export default {
 	data() {
 		return {
 			mode: "login",
+			serverError: "",
 		};
 	},
 	mounted() {
@@ -136,6 +137,9 @@ export default {
 <template>
 	<main class="form-signin">
 		<form v-on:submit.prevent>
+			<span v-if="status === 'error_create'" class="text-danger">
+			L'adresse email existe déjà.
+			</span>
 			<h1 v-if="mode == 'login'" class="h3 mb-3 fw-normal">
 				<span
 					v-if="status == 'error_signIn'"

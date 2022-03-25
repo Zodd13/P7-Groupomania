@@ -24,6 +24,7 @@ export default {
 				id: this.id,
 				comment: this.comment.comment,
 			});
+			window.alert('Votre commentaire a bien été modifié.')
 			this.$router.push("/home");
 		},
 	},
@@ -41,10 +42,12 @@ export default {
 				class="form-control mb-2"
 				placeholder="comment" />
 		</div>
-		<button v-if="comment.comment.length < 220" @click="updateComment()" class="btn btn-outline-primary btn-sm">
+		<button v-if="comment.comment.length < 220 && comment.comment.length >= 3" @click="updateComment()" class="btn btn-outline-primary btn-sm">
 			Mettre à jour
 		</button>
-		<span v-else class="text-danger">Votre commentaire est trop long !</span>
+		<span v-if="comment.comment.length < 3 " class="text-danger">Votre commentaire est trop court.</span>
+		<span v-if="comment.comment.length > 220" class="text-danger">Votre commentaire est trop long !</span>
+
 	</div>
 </template>
 <style></style>

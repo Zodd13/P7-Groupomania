@@ -57,7 +57,7 @@ export default {
 					id: this.id,
 					message: this.state.post.message,
 				});
-				window.alert("Message modifier, vous allez être rediriger.");
+				window.alert("Message modifié, vous allez être rediriger.");
 				this.$router.push("/home");
 			}
 		},
