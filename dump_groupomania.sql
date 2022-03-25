@@ -35,7 +35,7 @@ CREATE TABLE `commentaires` (
   KEY `fk_user` (`UserId`),
   CONSTRAINT `fk_commentaire` FOREIGN KEY (`PublicationId`) REFERENCES `publications` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `fk_user` FOREIGN KEY (`UserId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=88 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -44,7 +44,6 @@ CREATE TABLE `commentaires` (
 
 LOCK TABLES `commentaires` WRITE;
 /*!40000 ALTER TABLE `commentaires` DISABLE KEYS */;
-INSERT INTO `commentaires` VALUES (68,99,49,'salut',1,'2022-03-25 11:19:54','2022-03-25 11:19:54'),(70,99,61,'Salut besoin d\'aide',1,'2022-03-25 11:30:22','2022-03-25 11:31:19');
 /*!40000 ALTER TABLE `commentaires` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +65,7 @@ CREATE TABLE `publications` (
   PRIMARY KEY (`id`),
   KEY `fk_users` (`UserId`),
   CONSTRAINT `fk_users` FOREIGN KEY (`UserId`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=117 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -75,7 +74,6 @@ CREATE TABLE `publications` (
 
 LOCK TABLES `publications` WRITE;
 /*!40000 ALTER TABLE `publications` DISABLE KEYS */;
-INSERT INTO `publications` VALUES (99,59,'Coucou, il y a quelqu\'un par ici ? Besoin d\'aide pour le travail...',NULL,'2022-03-25 10:56:19','2022-03-25 10:59:00',1),(101,60,'Bonjour','http://localhost:3000/images/Pilepoil.jpeg1648207644546.jpg','2022-03-25 11:27:24','2022-03-25 11:30:44',1),(102,60,'Bonjour',NULL,'2022-03-25 11:27:33','2022-03-25 11:30:51',1),(103,61,'Salut à tous',NULL,'2022-03-25 11:30:09','2022-03-25 11:30:56',1),(104,49,'dda',NULL,'2022-03-25 12:11:28','2022-03-25 12:11:28',1),(105,49,'bonsoir',NULL,'2022-03-25 12:14:09','2022-03-25 12:14:09',1),(106,49,'bonsoir',NULL,'2022-03-25 12:14:10','2022-03-25 12:14:10',1),(107,49,'bonsoir',NULL,'2022-03-25 12:14:11','2022-03-25 12:14:11',1),(108,49,'fze',NULL,'2022-03-25 12:14:43','2022-03-25 12:14:43',1),(109,49,'fze',NULL,'2022-03-25 12:14:45','2022-03-25 12:14:45',1),(110,49,'test',NULL,'2022-03-25 12:15:23','2022-03-25 12:15:23',1),(111,49,'test',NULL,'2022-03-25 12:15:24','2022-03-25 12:15:24',1),(112,49,'test',NULL,'2022-03-25 12:15:29','2022-03-25 12:15:29',1),(113,49,'rgz',NULL,'2022-03-25 12:15:31','2022-03-25 12:15:31',1),(114,49,'coucou',NULL,'2022-03-25 12:15:36','2022-03-25 12:15:36',1),(115,49,'greger',NULL,'2022-03-25 12:15:45','2022-03-25 12:15:45',1),(116,62,'test',NULL,'2022-03-25 12:16:14','2022-03-25 12:16:14',0);
 /*!40000 ALTER TABLE `publications` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -122,7 +120,7 @@ CREATE TABLE `users` (
   `updatedAt` datetime NOT NULL,
   `avatar` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=76 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -131,7 +129,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (49,'Admin@admin.com','Administrateur','$2b$10$/DU7ZQrrJRWKDaGU0z3G9OGW/mqhyVXpWz4c5AAa7475UtqIujiue','Administrateur',1,0,'2022-03-24 09:56:05','2022-03-25 10:53:07','http://localhost:3000/images/favicon.ico1648205587130.undefined'),(50,'Test@test.com','Test','$2b$10$tAZ.SwogNrore3V3NsFmHun6pSzl.Y9koQYKMKdoOq4k3DXC9Y1fm','Test',1,0,'2022-03-24 10:01:04','2022-03-24 10:01:11','http://localhost:3000/images/Zunesha-est-un-garcon-de-joie-PAIujon-2.jpeg1648116071691.jpg'),(59,'Julie@hotmail.com','Julie','$2b$10$gs1pXz26aJQeVocWQ79eluNmu285Y4PI66toS36YYkZNrsN6g..5C','',0,0,'2022-03-25 10:50:53','2022-03-25 11:06:40','http://localhost:3000/images/Pilepoil.jpeg1648206400582.jpg'),(60,'Woody@hotmail.fr','Woody','$2b$10$Odu9vTeG/1G4Y4VTpTwkju7vrIkjntCljbqV/kgo/DFRlJu21F3jm','Salut, moi c\'est Woody cow-boy avisé !',0,0,'2022-03-25 11:26:10','2022-03-25 11:28:26','http://localhost:3000/images/woody.webp1648207706033.undefined'),(61,'abcd@gmail.com','Abcd','$2b$10$qJ4pvIFh5vGBgF2c1HA7o.u2Du7.rGUC.9qh5gP5PsdOvu209daTa','salut à tous',0,0,'2022-03-25 11:29:17','2022-03-25 11:29:41',NULL),(62,'Test@test.org','Test','$2b$10$OFiRTzp7aOCPVdfsAOfc9udGwe5gkuf8C1HXaJf7aEb5DGHdVh8zK','Test',0,0,'2022-03-25 12:16:07','2022-03-25 12:16:07',NULL);
+INSERT INTO `users` VALUES (73,'Admin@admin.com','Admin','$2b$10$H7QD/pnWBJfFOFlBpqz0dOkv76YdoUGrYDEF1zlXV.Mcl17zbf2Ze','Admin',1,0,'2022-03-25 15:55:10','2022-03-25 15:55:10',NULL),(75,'Test@gmail.com','Test','$2b$10$hT3JkjOO3JsO4/PFvvShpuxlALn9DS0cUIUihEHCmqIvzQPY0TJvC','Test',0,0,'2022-03-25 15:56:29','2022-03-25 15:56:29',NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -144,4 +142,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-03-25 13:25:19
+-- Dump completed on 2022-03-25 16:57:06
