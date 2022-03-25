@@ -10,7 +10,7 @@ Avant de lancer le projet, quelques étapes sont nécessaires.
 
 - Naviguez vers le dossier frontend et lancer la commande ```npm install```
 
-- Vous pouvez lancer le projet via la commande ```npm run serve```
+- Vous pourrez lancer le projet via la commande ```npm run serve``` après avoir accompli les étape ci-dessous.
 
 ##
 
@@ -38,7 +38,9 @@ Via l'invite de commande rendez vous dans le dossier du projet où se situe le D
 
 Via le terminal lancez : ```mysql -u root -p groupomania < dump.sql```
 
-Une fois ceci fait vous aurez accès au projet. Un compte administrateur est déjà créer :
+##
+
+Une fois ceci fait vous aurez accès au projet. Un compte administrateur est déjà créer ce dernier vous servira à valider les postes / commentaires d'un utilisateur lambda :
 
 ```EMAIL = Admin@admin.com```
 
