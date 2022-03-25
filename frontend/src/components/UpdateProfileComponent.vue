@@ -118,6 +118,7 @@ export default {
 					v-if="state.user.imageData.length > 0">
 					<img
 						:src="state.user.imageData"
+						alt="Preview"
 						class="rounded-circle mb-3"
 						width="70"
 						height="70" />

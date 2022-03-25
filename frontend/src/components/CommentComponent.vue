@@ -1,6 +1,5 @@
 <script>
 import { mapState } from "vuex";
-
 export default {
 	name: "ReadComment",
 	data() {
@@ -50,7 +49,7 @@ export default {
 				window.confirm("Êtes vous sûr de vouloir supprimer ce commentaire ?")
 			) {
 				this.$store.dispatch("deleteCommentAdmin", { id: this.id });
-				window.alert("Votre commentaire a bien été supprimer.");
+				window.alert("Votre commentaire a bien été supprimé.");
 				this.$router.push("/home");
 			}
 		},

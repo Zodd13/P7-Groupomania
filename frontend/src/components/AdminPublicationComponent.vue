@@ -53,14 +53,14 @@ export default {
 			this.$store.dispatch("deletePublicationAdmin", { id: this.id });
 			this.$router.push("/admin");
 			window.alert(
-				"La publication a bien été supprimer, vous allez être rediriger."
+				"La publication a bien été supprimé, vous allez être rediriger."
 			);
 		},
 		switchStatus() {
 			this.$store.dispatch("updateStatus", { id: this.id });
 			this.$router.push("/admin");
 			window.alert(
-				"La publication a bien été valider, vous allez être rediriger."
+				"La publication a bien été validé, vous allez être rediriger."
 			);
 		},
 	},
@@ -75,6 +75,7 @@ export default {
 				:src="message.User.avatar"
 				class="rounded-circle"
 				width="50"
+				alt="Avatar"
 				height="50" />
 			<img
 				v-else
@@ -95,7 +96,7 @@ export default {
 		<img
 			v-if="message.image !== null"
 			class="card-img-top"
-			alt="..."
+			alt="Image de publication"
 			:src="message.image" />
 		<div class="d-flex">
 			<button

@@ -47,6 +47,7 @@ export default {
 				<img
 					v-if="user.avatar !== null"
 					:src="user.avatar"
+					alt="Avatar"
 					class="rounded-circle"
 					width="70"
 					height="70" />
@@ -76,7 +77,7 @@ export default {
 				v-bind:revele="revele"
 				v-bind:toggleModale="toggleModale"
 				v-bind:deleteProfile="deleteProfile"></ModaleDeleteUser>
-			<div class="btn btn-danger mt-2" @click="toggleModale">
+			<div class="btn btn-danger mt-2 " tabindex=0 @click="toggleModale">
 				Supprimer votre compte
 			</div>
 		</div>
@@ -112,7 +113,6 @@ body {
 
 .mail {
 	font-size: 14px;
-	color: grey;
 	position: relative;
 	top: 2px;
 }

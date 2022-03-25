@@ -18,9 +18,6 @@ export default {
 			password: "",
 			bio: "",
 		});
-
-		// const alpha = helpers.regex(/^(([^<>()\]\\.,;:\s@"]+(\.[^<>()\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)
-
 		const rules = computed(() => {
 			return {
 				email: {
@@ -44,12 +41,12 @@ export default {
 				password: {
 					required,
 					minLength: helpers.withMessage(
-						"Votre mot de passe est trop court. Il doit être compris entre 4 et 20 caractère et contenir au moins un chiffre.",
+						"Votre mot de passe est trop court.",
 						minLength(3)
 					),
 					maxLength: helpers.withMessage(
 						"Votre mot de passe est trop long.",
-						maxLength(20)
+						maxLength(20),
 					),
 				},
 			};
@@ -64,7 +61,6 @@ export default {
 	data() {
 		return {
 			mode: "login",
-			messageError: "",
 		};
 	},
 	mounted() {
@@ -141,18 +137,13 @@ export default {
 	<main class="form-signin">
 		<form v-on:submit.prevent>
 			<h1 v-if="mode == 'login'" class="h3 mb-3 fw-normal">
-				<span v-if="status == 'error_signIn'" class="text-danger fs-5"
-					>Votre adresse e-mail ou votre mot de passe est incorrect.</span
-				>
-				<span v-else> Connectez-vous </span>
+				<span
+					v-if="status == 'error_signIn'"
+					class="text-danger fs-5"
+				>Votre adresse e-mail ou votre mot de passe est incorrect.</span>
+				<span v-else>Connectez-vous</span>
 			</h1>
-			<h1 v-else id="error_message" class="h3 mb-3 fw-normal">
-				<span v-if="status == 'error_create'" class="text-danger fs-6 w-75"
-					>Veuillez entrez une adresse email valide. Votre mot de passe doit
-					être compris entre 4 et 20 caractères et contenir un chiffre.</span
-				>
-				<span v-else>Inscrivez-vous </span>
-			</h1>
+			<h1 v-if="mode == 'create'" class="h3 mb-3 fw-normal">Inscrivez vous</h1>
 
 			<div class="form-floating">
 				<input
@@ -160,10 +151,13 @@ export default {
 					type="email"
 					class="form-control"
 					id="floatingEmail"
-					placeholder="name@example.com" />
-				<span class="text-danger" v-if="v$.email.$error">{{
-					v$.email.$errors[0].$message
-				}}</span>
+					placeholder="name@example.com"
+				/>
+				<span class="text-danger" v-if="v$.email.$error">
+					{{
+						v$.email.$errors[0].$message
+					}}
+				</span>
 				<label for="floatingInput">Adresse e-mail</label>
 			</div>
 
@@ -173,10 +167,13 @@ export default {
 					type="username"
 					class="form-control"
 					id="floatingUsername"
-					placeholder="Nom d'utilisateur" />
-				<span class="text-danger" v-if="v$.username.$error">{{
-					v$.username.$errors[0].$message
-				}}</span>
+					placeholder="Nom d'utilisateur"
+				/>
+				<span class="text-danger" v-if="v$.username.$error">
+					{{
+						v$.username.$errors[0].$message
+					}}
+				</span>
 				<label for="floatingPassword">Nom d'utilisateur</label>
 			</div>
 
@@ -186,7 +183,8 @@ export default {
 					type="bio"
 					class="form-control"
 					id="floatingBio"
-					placeholder="Biographie" />
+					placeholder="Biographie"
+				/>
 				<label for="floatingPassword">Présentez vous (optionnel)</label>
 			</div>
 
@@ -197,10 +195,13 @@ export default {
 					class="form-control"
 					id="floatingPassword"
 					autocomplete="on"
-					placeholder="Mot de passe" />
-				<span class="text-danger" v-if="v$.password.$error">{{
-					v$.password.$errors[0].$message
-				}}</span>
+					placeholder="Mot de passe"
+				/>
+				<span class="text-danger" v-if="v$.password.$error">
+					{{
+						v$.password.$errors[0].$message
+					}}
+				</span>
 				<label for="floatingPassword">Mot de passe</label>
 			</div>
 			<button
@@ -208,7 +209,8 @@ export default {
 				@click="signIn()"
 				class="w-100 btn btn-lg btn-primary"
 				:class="{ disabled: !validated }"
-				type="submit">
+				type="submit"
+			>
 				<span v-if="status == 'loading'">Connexion en cours ...</span>
 				<span v-else>Connexion</span>
 			</button>
@@ -217,7 +219,8 @@ export default {
 				@click="createAccount()"
 				class="w-100 btn btn-lg btn-primary"
 				:class="{ disabled: !validated }"
-				type="submit">
+				type="submit"
+			>
 				<span v-if="status == 'loading'">Création en cours ...</span>
 				<span v-else>Créer mon compte</span>
 			</button>
@@ -228,16 +231,9 @@ export default {
 					v-if="mode == 'login'"
 					type="button"
 					class="signin btn btn-sm"
-					@click="switchSignup">
-					Créer un compte
-				</button>
-				<button
-					v-else
-					type="button"
-					class="m-1 btn btn-warning btn-sm"
-					@click="switchLogin">
-					Connexion
-				</button>
+					@click="switchSignup"
+				>Créer un compte</button>
+				<button v-else type="button" class="m-1 btn btn-warning btn-sm" @click="switchLogin">Connexion</button>
 			</div>
 		</form>
 	</main>
@@ -275,18 +271,8 @@ export default {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
-
-#error_message {
-	width: 134%;
-	display: flex;
-}
 .signin {
 	color: #0d2163a2;
 	font-weight: bold;
-}
-@media (min-width: 768px) {
-	.bd-placeholder-img-lg {
-		font-size: 3.5rem;
-	}
 }
 </style>

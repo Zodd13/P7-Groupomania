@@ -42,6 +42,7 @@ export default {
 						:src="user.avatar"
 						class="rounded-circle"
 						width="50"
+						alt="Avatar"
 						height="50" />
 					<img
 						v-else

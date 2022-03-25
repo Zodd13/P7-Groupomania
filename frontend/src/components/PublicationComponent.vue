@@ -70,7 +70,7 @@ export default {
 				this.$store.dispatch("deletePublicationAdmin", { id: this.id });
 				this.$router.push("/home");
 				window.alert(
-					"La publication a bien été supprimer, vous allez être rediriger."
+					"La publication a bien été supprimé, vous allez être rediriger."
 				);
 			}
 		},
@@ -80,10 +80,17 @@ export default {
 				id: this.id,
 				comment: this.comment.comments,
 			});
+			if(this.user.isAdmin === true){
+				window.alert(
+					"Votre commentaire a été posté."
+				);
+				window.location.reload();
+			} else {
 			window.alert(
-				"Votre commentaire a bien été poster, un administrateur va le valider."
+				"Votre commentaire a bien été posté, un administrateur va le valider."
 			);
 			window.location.reload();
+			}
 		},
 		goToComment(id) {
 			this.$router.push("/comments/" + id);
@@ -113,9 +120,10 @@ export default {
 						v-else
 						src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
 						class="rounded-circle"
+						alt="Avatar"
 						width="70" />
 					{{ message.User.username }}
-					à publier
+					a publié
 				</div>
 				<span
 					@click="goToUpdate(id)"
@@ -186,7 +194,7 @@ export default {
 						width="40"
 						height="40" />
 						
-					{{ comment.User.username }} à commenter
+					{{ comment.User.username }} a commenté
 				</p>
 				<span class="material-icons position-absolute">more_horiz</span>
 				<p class="comment--text m-0 position-relative">{{ comment.comment }}</p>

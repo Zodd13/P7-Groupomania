@@ -38,7 +38,7 @@ export default {
 				id: this.$route.params.id,
 			});
 			this.$router.push("/adminuser");
-			window.alert("Compte supprimer avec succès, vous allez être rediriger.");
+			window.alert("Compte supprimé avec succès, vous allez être rediriger.");
 		},
 		toggleModale() {
 			this.revele = !this.revele;
@@ -62,6 +62,7 @@ export default {
 				:src="user.customer.avatar"
 				class="rounded-circle"
 				width="50"
+				alt="Avatar"
 				height="50" />
 			<img
 				v-else

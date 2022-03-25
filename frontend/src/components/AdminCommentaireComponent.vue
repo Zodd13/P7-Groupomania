@@ -64,11 +64,13 @@ export default {
 					<img
 						v-if="comment.User.avatar !== null"
 						:src="comment.User.avatar"
+						alt="Avatar"
 						class="rounded-circle"
 						width="50"
 						height="50" />
 					<img
 						v-else
+						alt="Avatar"
 						src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
 						class="img-fluid profile-image"
 						width="50"

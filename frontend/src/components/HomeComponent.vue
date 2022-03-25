@@ -64,12 +64,12 @@ export default {
 				this.$store.dispatch("publicationPost", formData);
 				if (this.user.isAdmin === true) {
 					window.alert(
-						"Votre publication a bien été poster."
+						"Votre publication a bien été posté."
 					);
 					window.location.reload();
 				} else {
 				window.alert(
-					"Votre publication a bien été poster. Un de nos administrateurs va validé votre poste."
+					"Votre publication a bien été posté. Un de nos administrateurs va valider votre poste."
 				);
 				window.location.reload();
 				}
@@ -154,6 +154,7 @@ export default {
 					<button
 						class="mt-1 btn btn-sm btn-warning w-auto"
 						type="submit"
+						tabindex=0
 						@click.prevent="submitPostImage()"
 						:class="{ disabled: !validated }">
 						Publier votre message
@@ -167,12 +168,13 @@ export default {
 				:key="message.id"
 				:message="message"
 				class="card p-2">
-				<div class="card-body" @click="publicationId(message.id)">
+				<div class="card-body" tabindex=0 @click="publicationId(message.id)">
 					<p class="username--card fw-bold align-items-center">
 						<img
 							v-if="message.User.avatar !== null"
 							:src="message.User.avatar"
 							class="rounded-circle"
+							alt="Avatar"
 							width="50"
 							height="50" />
 						<img
@@ -181,7 +183,7 @@ export default {
 							class="img-fluid profile-image"
 							width="50"
 							height="50" />
-						{{ message.User.username }} à publié :
+						{{ message.User.username }} a publié :
 					</p>
 					<div class="dropdown-divider"></div>
 					<div
@@ -193,11 +195,12 @@ export default {
 				<img
 					v-if="message.image !== null"
 					class="card-img-top"
-					alt="..."
+					alt="Image de publication"
 					:src="message.image" />
 				<div class="dropdown-divider"></div>
 				<div
 					class="commentary--link mt-1 d-flex justify-content-center fw-bold"
+					tabindex=0
 					@click="publicationId(message.id)">
 					<p>Voir les commentaires</p>
 				</div>

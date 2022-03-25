@@ -10,9 +10,7 @@ exports.signup = (req, res, next) => {
 	let password = req.body.password;
 	let bio = req.body.bio;
 
-	const EMAIL_REGEX =
-		/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-	const PASSWORD_REGEX = /^(?=.*\d).{4,20}$/;
+	const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 	if (email == null || username == null || password == null) {
 		return res.status(400).json({ error: "Données manquantes." });
@@ -20,12 +18,6 @@ exports.signup = (req, res, next) => {
 
 	if (!EMAIL_REGEX.test(email)) {
 		return res.status(400).json({ error: "L'adresse email est invalide." });
-	}
-	if (!PASSWORD_REGEX.test(password)) {
-		return res.status(400).json({
-			error:
-				"Mot de passe invalide il doit être en 4 et 20 caractères et contenir un chiffre.",
-		});
 	}
 
 	models.User.findOne({
@@ -48,7 +40,7 @@ exports.signup = (req, res, next) => {
 						password: bcryptedPassword,
 						bio: bio,
 						avatar: avatarUrl,
-						isAdmin: 1,
+						isAdmin: 0,
 					})
 						.then(function (newUser) {
 							return res.status(201).json({

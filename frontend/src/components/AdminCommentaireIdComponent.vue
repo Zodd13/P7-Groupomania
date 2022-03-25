@@ -36,12 +36,12 @@ export default {
 	methods: {
 		deleteComment() {
 			this.$store.dispatch("deleteCommentAdmin", { id: this.id });
-			window.alert("Votre commentaire a bien été supprimer.");
+			window.alert("Le commentaire a bien été supprimé.");
 			this.$router.push("/admincommentaires");
 		},
 		switchStatus() {
 			this.$store.dispatch("updateStatusComment", { id: this.id });
-			window.alert("Le commentaire a bien été valider.");
+			window.alert("Le commentaire a bien été validé.");
 			this.$router.push("/home");
 		},
 	},
@@ -56,10 +56,12 @@ export default {
 				v-if="comment.User.avatar !== null"
 				:src="comment.User.avatar"
 				class="rounded-circle"
+				alt="Avatar"
 				width="50"
 				height="50" />
 			<img
 				v-else
+				alt="Avatar"
 				src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
 				class="img-fluid profile-image"
 				width="50"

@@ -46,13 +46,12 @@ export default {
 				</g>
 			</svg>
 		</div>
-		<router-link to="/home"><fa icon="home" /></router-link>
+		<router-link to="/home">Accueil</router-link>
 		<router-link to="/register" v-if="this.$store.state.user.userId == -1"
 			>S'inscrire | Se connecter</router-link
 		>
 		<router-link to="/profile" v-if="this.$store.state.user.userId !== -1"
-			><fa icon="user"
-		/></router-link>
+			>Votre profil</router-link>
 		<router-link to="/admin" v-if="this.$store.state.user.isAdmin === true"
 			>Administration</router-link
 		>

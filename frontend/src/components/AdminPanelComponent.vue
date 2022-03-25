@@ -70,6 +70,7 @@ export default {
 						v-if="message.User.avatar !== null"
 						:src="message.User.avatar"
 						class="rounded-circle"
+						alt="Avatar"
 						width="50"
 						height="50" />
 					<img
@@ -92,7 +93,7 @@ export default {
 			<img
 				v-if="message.image !== null"
 				class="card-img-top"
-				alt="..."
+				alt="Image de publication"
 				:src="message.image" />
 		</div>
 	</div>
