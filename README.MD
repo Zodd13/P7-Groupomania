@@ -1,4 +1,4 @@
-Avant de lancer le projet, quelques étapes sont nécéssaires.
+Avant de lancer le projet, quelques étapes sont nécessaires.
 
 ##
 
